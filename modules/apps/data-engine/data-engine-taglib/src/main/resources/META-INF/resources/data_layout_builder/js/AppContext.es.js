@@ -218,6 +218,26 @@ const setDataDefinitionFields = (
 	);
 };
 
+/**
+ * Label;
+ * Placeholder Text;
+ * Help Text;
+ * Predefined Value;
+ * Show Label (On/Off) - This one can be always "On" at object level and overwrote to "Off" when added to a new view;
+ * Selection Field Types Inline option (On/Off)
+ * Multiple Selection Show as Switcher option (On/Off)
+ */
+
+const VISUAL_PROPERTIES = [
+	'label',
+	'placeholder',
+	'tip',
+	'predefinedValue',
+	'showLabel'
+]
+
+const hasVisualProperties = (fieldName) => VISUAL_PROPERTIES.find((property) => property === fieldName)
+
 const setDataLayout = (dataLayout, dataLayoutBuilder) => {
 	const {dataLayoutFields, dataRules} = dataLayout;
 	const {pages} = dataLayoutBuilder.getStore();
@@ -233,17 +253,25 @@ const setDataLayout = (dataLayout, dataLayoutBuilder) => {
 	visitor.mapFields((field) => {
 		const definitionField = dataLayoutBuilder.getDataDefinitionField(field);
 
-		fields.push(definitionField);
+		fields.push({
+			...definitionField,
+			visualProperties: field.settingsContext.pages.reduce((acc, cur) => {
+				const fielteredVisualProperties = cur.rows[0].columns[0].fields.filter(field => hasVisualProperties(field.fieldName));
+			
+				return [...acc, ...fielteredVisualProperties];
+			}, [])
+		});
 	});
 
 	return {
 		...layout,
-		dataLayoutFields: fields.reduce((allFields, field) => {
+		dataLayoutFields: fields.reduce((allFields, {name, required, visualProperties}) => {
 			return {
 				...allFields,
-				[field.name]: {
-					...dataLayoutFields[field.name],
-					required: field?.required ?? false,
+				[name]: {
+					...dataLayoutFields[name],
+					required: !!required,
+					visualProperties
 				},
 			};
 		}, {}),
