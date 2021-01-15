@@ -219,13 +219,32 @@ const setDataDefinitionFields = (
 };
 
 const getVisualPropertiesFromField = ({settingsContext: {pages}}) => {
-	return pages.reduce((acc, cur) => {
-		const {fields} = cur.rows[0].columns[0];
-		const fielteredVisualProperties = fields.filter((field) => !!field[visualProperty]);
-	
-		return [...acc, ...fielteredVisualProperties];
-	}, []);
-}
+	const VISUAL_PROPERTIES = [
+		'label',
+		'placeholder',
+		'tip',
+		'predefinedValue',
+		'showLabel',
+	];
+
+	const hasVisualProperties = ({fieldName}) =>
+		VISUAL_PROPERTIES.find((property) => property === fieldName);
+
+	const fieldProperties = {};
+
+	pages.forEach((field) => {
+		const {fields} = field.rows[0].columns[0];
+		fields
+			.filter((field) => hasVisualProperties(field))
+			.forEach(({fieldName, localizable, localizedValue, value}) => {
+				fieldProperties[fieldName] = localizable
+					? localizedValue
+					: value;
+			});
+	});
+
+	return fieldProperties;
+};
 
 const setDataLayout = (dataLayout, dataLayoutBuilder) => {
 	const {dataLayoutFields, dataRules} = dataLayout;
@@ -242,24 +261,28 @@ const setDataLayout = (dataLayout, dataLayoutBuilder) => {
 	visitor.mapFields((field) => {
 		const definitionField = dataLayoutBuilder.getDataDefinitionField(field);
 
+
 		fields.push({
 			...definitionField,
-			visualProperties: getVisualPropertiesFromField(field)
+			visualProperties: getVisualPropertiesFromField(field),
 		});
 	});
 
 	return {
 		...layout,
-		dataLayoutFields: fields.reduce((acc, {name, required = false, visualProperties}) => {
-			return {
-				...acc,
-				[name]: {
-					...dataLayoutFields[name],
-					...visualProperties,
-					required,
-				},
-			};
-		}, {}),
+		dataLayoutFields: fields.reduce(
+			(acc, {name, required = false, visualProperties}) => {
+				return {
+					...acc,
+					[name]: {
+						...dataLayoutFields[name],
+						...visualProperties,
+						required,
+					},
+				};
+			},
+			{}
+		),
 	};
 };
 
