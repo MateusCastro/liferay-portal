@@ -12,6 +12,42 @@
  * details.
  */
 
+const VISUAL_PROPERTIES = [
+	'customProperties.placeholder',
+	'label',
+	'showLabel',
+	'defaultValue',
+	'tip',
+];
+
+function readProp(object, prop, defaultValue) {
+	const props = (typeof prop === 'string') ? prop.split('.') : [];
+	let ret = typeof object === 'object' && object !== null ? object : { };
+
+	if (props.length) {
+		for (let i = 0; i < (props.length); i++) { //eslint-disable-line
+			if (ret[props[i]] === undefined || (i < (props.length - 1) && ret[props[i]] === null)) {
+				return defaultValue;
+			}
+			ret = ret[props[i]];
+		}
+
+		return ret;
+	}
+
+	return defaultValue;
+}
+
+function getVisualPropertiesFromField(field){
+	const visualProperties = {};
+	VISUAL_PROPERTIES.forEach(property => {
+		const propertyName = property.split(".").slice(-1);
+		visualProperties[propertyName] = readProp(field, property);
+	})
+
+	return visualProperties;
+}
+
 /**
  * Normalize field
  * @param {Array} availableLanguageIds
@@ -133,14 +169,24 @@ export function normalizeDataDefinition(
 export function normalizeDataLayout(
 	dataLayout,
 	defaultLanguageId = themeDisplay.getDefaultLanguageId(),
-	dataDefinitionFieldNames
+	dataDefinition,
+	dataLayoutBuilder
 ) {
 	const {dataLayoutFields = {}} = dataLayout;
+	const {dataDefinitionFields} = dataDefinition;
 
-	if (dataDefinitionFieldNames) {
+	if (dataDefinitionFields) {
 		Object.keys(dataLayoutFields).forEach((field) => {
-			if (!dataDefinitionFieldNames.includes(field)) {
+			if (dataDefinitionFields.findIndex(item => item.name === field) === -1) {
 				delete dataLayoutFields[field];
+			} else {
+				dataDefinitionFields.forEach(definitionField => {
+					console.log(dataLayoutBuilder.getDDMFormField(dataDefinition, definitionField.name));
+					dataLayoutFields[definitionField.name] = {
+						...dataLayoutFields[definitionField.name],
+						visualProperties: getVisualPropertiesFromField(definitionField)
+					}
+				})
 			}
 		});
 	}

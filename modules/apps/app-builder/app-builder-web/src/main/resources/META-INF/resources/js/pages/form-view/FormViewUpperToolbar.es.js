@@ -26,6 +26,7 @@ import UpperToolbar from '../../components/upper-toolbar/UpperToolbar.es';
 import {errorToast, successToast} from '../../utils/toast.es';
 import {normalizeNames} from '../../utils/utils.es';
 import FormViewContext from './FormViewContext.es';
+import DataLayoutBuilderContext from './DataLayoutBuilderInstanceContext.es';
 
 export default function FormViewUpperToolbar({newCustomObject, popUpWindow}) {
 	const [defaultLanguageId, setDefaultLanguageId] = useState('');
@@ -39,6 +40,7 @@ export default function FormViewUpperToolbar({newCustomObject, popUpWindow}) {
 		dataLayout,
 		initialAvailableLanguageIds,
 	} = state;
+	const [dataLayoutBuilder] = useContext(DataLayoutBuilderContext)
 
 	const onEditingLanguageIdChange = useCallback(
 		(editingLanguageId) => {
@@ -139,7 +141,7 @@ export default function FormViewUpperToolbar({newCustomObject, popUpWindow}) {
 					localizableValue: dataLayout.name,
 				}),
 			},
-		})
+		}, dataLayoutBuilder)
 			.then(onSuccess)
 			.catch((error) => {
 				onError(error);
