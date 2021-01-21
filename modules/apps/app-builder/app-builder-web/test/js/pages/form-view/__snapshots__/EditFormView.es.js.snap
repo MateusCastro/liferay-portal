@@ -107,22 +107,22 @@ exports[`EditFormView renders 1`] = `
               class="pr-2 autofit-col autofit-col-expand"
             >
               <div
-                class="list-group-title text-truncate"
+                class="d-flex list-group-title"
               >
                 <span>
                   Name
-                  <span
-                    class="reference-mark"
+                </span>
+                <span
+                  class="reference-mark"
+                >
+                  <svg
+                    class="lexicon-icon lexicon-icon-asterisk"
+                    role="presentation"
                   >
-                    <svg
-                      class="lexicon-icon lexicon-icon-asterisk"
-                      role="presentation"
-                    >
-                      <use
-                        xlink:href="#asterisk"
-                      />
-                    </svg>
-                  </span>
+                    <use
+                      xlink:href="#asterisk"
+                    />
+                  </svg>
                 </span>
               </div>
               <p
@@ -198,22 +198,22 @@ exports[`EditFormView renders 1`] = `
               class="pr-2 autofit-col autofit-col-expand"
             >
               <div
-                class="list-group-title text-truncate"
+                class="d-flex list-group-title"
               >
                 <span>
                   Options
-                  <span
-                    class="reference-mark"
+                </span>
+                <span
+                  class="reference-mark"
+                >
+                  <svg
+                    class="lexicon-icon lexicon-icon-asterisk"
+                    role="presentation"
                   >
-                    <svg
-                      class="lexicon-icon lexicon-icon-asterisk"
-                      role="presentation"
-                    >
-                      <use
-                        xlink:href="#asterisk"
-                      />
-                    </svg>
-                  </span>
+                    <use
+                      xlink:href="#asterisk"
+                    />
+                  </svg>
                 </span>
               </div>
               <p
@@ -296,7 +296,7 @@ exports[`EditFormView renders 1`] = `
                   class="pr-2 autofit-col autofit-col-expand"
                 >
                   <div
-                    class="list-group-title text-truncate"
+                    class="d-flex list-group-title"
                   >
                     <span>
                       Address
@@ -385,7 +385,7 @@ exports[`EditFormView renders 1`] = `
                         class="pr-2 autofit-col autofit-col-expand"
                       >
                         <div
-                          class="list-group-title text-truncate"
+                          class="d-flex list-group-title"
                         >
                           <span>
                             Text Field

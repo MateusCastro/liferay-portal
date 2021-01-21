@@ -286,7 +286,7 @@ exports[`EditTableView renders 1`] = `
                     class="pr-2 autofit-col autofit-col-expand"
                   >
                     <div
-                      class="list-group-title text-truncate"
+                      class="d-flex list-group-title"
                     >
                       <span>
                         Name
