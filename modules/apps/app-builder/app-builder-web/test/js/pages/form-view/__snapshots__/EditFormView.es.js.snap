@@ -109,7 +109,9 @@ exports[`EditFormView renders 1`] = `
               <div
                 class="d-flex list-group-title"
               >
-                <span>
+                <span
+                  class="text-truncate"
+                >
                   Name
                 </span>
                 <span
@@ -200,7 +202,9 @@ exports[`EditFormView renders 1`] = `
               <div
                 class="d-flex list-group-title"
               >
-                <span>
+                <span
+                  class="text-truncate"
+                >
                   Options
                 </span>
                 <span
@@ -298,7 +302,9 @@ exports[`EditFormView renders 1`] = `
                   <div
                     class="d-flex list-group-title"
                   >
-                    <span>
+                    <span
+                      class="text-truncate"
+                    >
                       Address
                     </span>
                   </div>
@@ -387,7 +393,9 @@ exports[`EditFormView renders 1`] = `
                         <div
                           class="d-flex list-group-title"
                         >
-                          <span>
+                          <span
+                            class="text-truncate"
+                          >
                             Text Field
                           </span>
                         </div>

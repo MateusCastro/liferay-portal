@@ -288,7 +288,9 @@ exports[`EditTableView renders 1`] = `
                     <div
                       class="d-flex list-group-title"
                     >
-                      <span>
+                      <span
+                        class="text-truncate"
+                      >
                         Name
                       </span>
                     </div>
