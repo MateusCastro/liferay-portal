@@ -123,7 +123,7 @@ export default (props) => {
 
 			<ClayLayout.ContentCol className="pr-2" expand>
 				<div className="d-flex list-group-title">
-					<span>{label}</span>
+					<span className="text-truncate">{label}</span>
 					{required && (
 						<span className="reference-mark">
 							<ClayIcon symbol="asterisk" />
