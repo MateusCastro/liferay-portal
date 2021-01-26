@@ -138,6 +138,7 @@ export default function ({
 						case EVENT_TYPES.FIELD_CHANGE:
 							dispatchEvent(type, {
 								editingLanguageId:
+									editingLanguageId ||
 									settingsContext.editingLanguageId,
 								propertyName: payload.fieldInstance.fieldName,
 								propertyValue: payload.value,
