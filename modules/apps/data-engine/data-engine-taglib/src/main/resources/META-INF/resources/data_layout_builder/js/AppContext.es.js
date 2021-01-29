@@ -134,23 +134,19 @@ const deleteDataLayoutField = (dataLayout, fieldName) => {
 	};
 };
 
-const editFocusedCustomObjectField = ({
-	editingLanguageId,
-	focusedCustomObjectField,
-	propertyName,
-	propertyValue,
-}) => {
-	let localizableProperty = false;
+const editFocusedCustomObjectField = (
+	{editingLanguageId, focusedCustomObjectField, propertyName, propertyValue},
+	dataLayoutBuilder
+) => {
 	let localizedValue;
 	const {settingsContext} = focusedCustomObjectField;
 	const visitor = new PagesVisitor(settingsContext.pages);
 	const newSettingsContext = {
 		...settingsContext,
 		pages: visitor.mapFields((field) => {
-			const {fieldName, localizable} = field;
+			const {fieldName} = field;
 
 			if (fieldName === propertyName) {
-				localizableProperty = localizable;
 				localizedValue = {
 					...field.localizedValue,
 					[editingLanguageId]: propertyValue,
@@ -167,13 +163,12 @@ const editFocusedCustomObjectField = ({
 		}),
 	};
 
-	if (localizableProperty) {
-		propertyValue = localizedValue;
-	}
+	const newFocusedCustomObjectField = dataLayoutBuilder.getDataDefinitionField(
+		{...focusedCustomObjectField, settingsContext: newSettingsContext}
+	);
 
 	return {
-		...focusedCustomObjectField,
-		[propertyName]: propertyValue,
+		...newFocusedCustomObjectField,
 		settingsContext: newSettingsContext,
 	};
 };
@@ -369,7 +364,8 @@ const createReducer = (dataLayoutBuilder) => {
 					{
 						...action.payload,
 						focusedCustomObjectField,
-					}
+					},
+					dataLayoutBuilder
 				);
 				const {
 					nestedDataDefinitionFields,
