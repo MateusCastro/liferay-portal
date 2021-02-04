@@ -19,7 +19,6 @@ import React, {useEffect, useReducer, useState} from 'react';
 
 import ControlMenu from '../../../components/control-menu/ControlMenu.es';
 import useDataDefinition from '../../../hooks/useDataDefinition.es';
-import {getItem} from '../../../utils/client.es';
 import EditAppBody from './EditAppBody.es';
 import EditAppContext, {UPDATE_APP, reducer} from './EditAppContext.es';
 import EditAppFooter from './EditAppFooter.es';
