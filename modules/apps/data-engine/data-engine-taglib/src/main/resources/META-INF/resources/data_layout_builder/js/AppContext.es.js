@@ -134,11 +134,11 @@ const deleteDataLayoutField = (dataLayout, fieldName) => {
 	};
 };
 
-const editFocusedCustomObjectField = ({
-	focusedCustomObjectField,
-	propertyName,
-	propertyValue,
-}, editingLanguageId, dataLayoutBuilder) => {
+const editFocusedCustomObjectField = (
+	{focusedCustomObjectField, propertyName, propertyValue},
+	editingLanguageId,
+	dataLayoutBuilder
+) => {
 	let localizedValue;
 	const {settingsContext} = focusedCustomObjectField;
 	const visitor = new PagesVisitor(settingsContext.pages);
@@ -150,7 +150,8 @@ const editFocusedCustomObjectField = ({
 			if (fieldName === propertyName) {
 				localizedValue = {
 					...field.localizedValue,
-					[editingLanguageId || themeDisplay.getLanguageId()]: propertyValue,
+					[editingLanguageId ||
+					themeDisplay.getLanguageId()]: propertyValue,
 				};
 
 				return {
@@ -360,7 +361,11 @@ const createReducer = (dataLayoutBuilder) => {
 				};
 			}
 			case EDIT_CUSTOM_OBJECT_FIELD: {
-				const {dataDefinition, editingLanguageId, focusedCustomObjectField} = state;
+				const {
+					dataDefinition,
+					editingLanguageId,
+					focusedCustomObjectField,
+				} = state;
 				const editedFocusedCustomObjectField = editFocusedCustomObjectField(
 					{
 						...action.payload,
