@@ -25,7 +25,7 @@ const INITIAL_STATE = {
 		dataDefinitionFields: [
 			{
 				customProperties: {
-					labelAtStructureLevel: true
+					labelAtStructureLevel: true,
 				},
 				label: {
 					en_US: 'Text',
@@ -34,7 +34,7 @@ const INITIAL_STATE = {
 			},
 			{
 				customProperties: {
-					labelAtStructureLevel: true
+					labelAtStructureLevel: true,
 				},
 				label: {
 					en_US: 'Text 2',
@@ -60,7 +60,7 @@ const INITIAL_STATE_FORM_VIEW = {
 			{
 				...INITIAL_STATE.dataDefinition.dataDefinitionFields[0],
 				customProperties: {
-					labelAtStructureLevel: false
+					labelAtStructureLevel: false,
 				},
 			},
 		],
@@ -218,9 +218,9 @@ describe('LabelField', () => {
 		const {queryByLabelText} = render(<LabelFieldWrapper />);
 
 		const radioFormView = queryByLabelText('label-for-only-this-form');
-		
+
 		await fireEvent.click(radioFormView);
-		
+
 		await act(async () => {
 			jest.runAllTimers();
 		});
@@ -258,5 +258,3 @@ describe('LabelField', () => {
 		});
 	});
 });
-
-
