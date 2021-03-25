@@ -60,7 +60,14 @@ const Text = ({capitalize = false, children = '', lowercase = false}) => (
 
 export default function RuleItem({rule, toggleRulesEditorVisibility}) {
 	const {actions, conditions, logicalOperator, name: ruleName} = rule;
-	const [{dataDefinition}, dispatch] = useContext(AppContext);
+	const [
+		{
+			dataDefinition,
+			dataLayout: {dataLayoutFields},
+			editingLanguageId,
+		},
+		dispatch,
+	] = useContext(AppContext);
 	const {defaultLanguageId} = dataDefinition;
 	const name = getLocalizedValue(defaultLanguageId, ruleName);
 
@@ -85,6 +92,23 @@ export default function RuleItem({rule, toggleRulesEditorVisibility}) {
 			name: Liferay.Language.get('delete'),
 		},
 	];
+
+	const getLabel = (fieldName) => {
+		const field = getDataDefinitionField(dataDefinition, fieldName);
+		let dataLayoutLabel;
+		let dataDefinitionLabel;
+
+		if (!field?.customProperties?.labelAtStructureLevel) {
+			dataLayoutLabel =
+				dataLayoutFields?.[fieldName]?.label?.[editingLanguageId];
+		}
+
+		if (field) {
+			dataDefinitionLabel = getFieldLabel(dataDefinition, fieldName);
+		}
+
+		return dataLayoutLabel || dataDefinitionLabel;
+	};
 
 	const replaceExpressionLabels = (expression) => {
 		forEachDataDefinitionField(dataDefinition, ({name}) => {
@@ -117,13 +141,10 @@ export default function RuleItem({rule, toggleRulesEditorVisibility}) {
 						const lastValue = last?.value;
 
 						const _getFieldLabel = () => {
-							const field = getDataDefinitionField(
-								dataDefinition,
-								lastValue
-							);
+							const label = getLabel(lastValue);
 
-							if (field) {
-								return getFieldLabel(dataDefinition, lastValue);
+							if (label) {
+								return label;
 							}
 
 							const parent = getDataDefinitionField(
@@ -151,7 +172,7 @@ export default function RuleItem({rule, toggleRulesEditorVisibility}) {
 								</Text>
 
 								<ClayLabel displayType="success">
-									{getFieldLabel(dataDefinition, first.value)}
+									{getLabel(first.value)}
 								</ClayLabel>
 
 								<ClayLabel displayType="secondary">
@@ -192,7 +213,7 @@ export default function RuleItem({rule, toggleRulesEditorVisibility}) {
 							)}
 
 							<ClayLabel displayType="success">
-								{getFieldLabel(dataDefinition, target)}
+								{getLabel(target)}
 							</ClayLabel>
 
 							{index + 1 !== actions.length && (
