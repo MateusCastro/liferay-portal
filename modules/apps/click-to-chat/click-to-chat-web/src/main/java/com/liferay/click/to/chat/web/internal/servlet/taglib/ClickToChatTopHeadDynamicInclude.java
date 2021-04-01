@@ -18,13 +18,15 @@ import aQute.bnd.component.annotations.Activate;
 import aQute.bnd.component.annotations.Modified;
 
 import com.liferay.click.to.chat.web.internal.configuration.ClickToChatConfiguration;
-import com.liferay.click.to.chat.web.internal.configuration.GroupProviderTokenStrategy;
+import com.liferay.click.to.chat.web.internal.configuration.ClickToChatProviderSiteStrategy;
 import com.liferay.click.to.chat.web.internal.constants.ClickToChatWebKeys;
-import com.liferay.click.to.chat.web.internal.providers.ProviderDynamicInclude;
-import com.liferay.click.to.chat.web.internal.providers.ProviderDynamicIncludeFactory;
-import com.liferay.click.to.chat.web.internal.providers.ProviderOptions;
+import com.liferay.click.to.chat.web.internal.provider.ProviderOptions;
+import com.liferay.click.to.chat.web.internal.provider.dynamic.include.ProviderDynamicInclude;
+import com.liferay.click.to.chat.web.internal.provider.dynamic.include.ProviderDynamicIncludeFactory;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.servlet.taglib.DynamicInclude;
@@ -48,16 +50,23 @@ import org.osgi.service.component.annotations.Component;
  * @author José Abelenda
  */
 @Component(
-	configurationPid = ClickToChatConfiguration.ID, immediate = true,
-	service = DynamicInclude.class
+	configurationPid = "com.liferay.click.to.chat.web.internal.configuration.ClickToChatConfiguration",
+	immediate = true, service = DynamicInclude.class
 )
 public class ClickToChatTopHeadDynamicInclude implements DynamicInclude {
 
 	@Activate
 	@Modified
 	public void activate(Map<String, Object> properties) {
-		_clickToChatConfiguration = ConfigurableUtil.createConfigurable(
-			ClickToChatConfiguration.class, properties);
+		try {
+			_clickToChatConfiguration = ConfigurableUtil.createConfigurable(
+				ClickToChatConfiguration.class, properties);
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
+		}
 	}
 
 	@Override
@@ -66,24 +75,26 @@ public class ClickToChatTopHeadDynamicInclude implements DynamicInclude {
 			HttpServletResponse httpServletResponse, String key)
 		throws IOException {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
+		if (_clickToChatConfiguration != null) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
 
-		Group liveGroup = themeDisplay.getScopeGroup();
+			Group liveGroup = themeDisplay.getScopeGroup();
 
-		if (liveGroup != null) {
-			_typeSettingsUnicodeProperties =
-				liveGroup.getTypeSettingsProperties();
-		}
-		else {
-			_typeSettingsUnicodeProperties = new UnicodeProperties();
-		}
+			if (liveGroup != null) {
+				_typeSettingsUnicodeProperties =
+					liveGroup.getTypeSettingsProperties();
+			}
+			else {
+				_typeSettingsUnicodeProperties = new UnicodeProperties();
+			}
 
-		if (!LiferayWindowState.isPopUp(httpServletRequest)) {
-			PrintWriter printWriter = httpServletResponse.getWriter();
+			if (!LiferayWindowState.isPopUp(httpServletRequest)) {
+				PrintWriter printWriter = httpServletResponse.getWriter();
 
-			printWriter.println(_getContentToInclude(themeDisplay));
+				printWriter.println(_getContentToInclude(themeDisplay));
+			}
 		}
 	}
 
@@ -94,15 +105,17 @@ public class ClickToChatTopHeadDynamicInclude implements DynamicInclude {
 	}
 
 	private String _determineProviderTokenForSite() {
-		GroupProviderTokenStrategy strategy =
-			_clickToChatConfiguration.groupProviderTokenStrategy();
+		ClickToChatProviderSiteStrategy strategy =
+			_clickToChatConfiguration.groupProviderSiteStrategy();
 
 		if (strategy != null) {
-			if (strategy.equals(GroupProviderTokenStrategy.ALWAYS_INHERIT)) {
+			if (strategy.equals(
+					ClickToChatProviderSiteStrategy.ALWAYS_INHERIT)) {
+
 				return _clickToChatConfiguration.defaultAccountToken();
 			}
 			else if (strategy.equals(
-						GroupProviderTokenStrategy.PROVIDE_OR_INHERIT)) {
+						ClickToChatProviderSiteStrategy.PROVIDE_OR_INHERIT)) {
 
 				String groupProviderToken = GetterUtil.getString(
 					_typeSettingsUnicodeProperties.getProperty(
@@ -115,7 +128,7 @@ public class ClickToChatTopHeadDynamicInclude implements DynamicInclude {
 
 				return _clickToChatConfiguration.defaultAccountToken();
 			}
-			else if (strategy.equals(GroupProviderTokenStrategy.PROVIDE)) {
+			else if (strategy.equals(ClickToChatProviderSiteStrategy.PROVIDE)) {
 				return GetterUtil.getString(
 					_typeSettingsUnicodeProperties.getProperty(
 						ClickToChatWebKeys.
@@ -164,7 +177,7 @@ public class ClickToChatTopHeadDynamicInclude implements DynamicInclude {
 					provider, providerAccountToken, themeDisplay.getUser());
 
 			if (providerDynamicInclude != null) {
-				return providerDynamicInclude.getContentToInclude();
+				return providerDynamicInclude.getContent();
 			}
 
 			return "<!-- Provider not setted in Click to Chat -->";
@@ -194,6 +207,9 @@ public class ClickToChatTopHeadDynamicInclude implements DynamicInclude {
 
 		return false;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ClickToChatTopHeadDynamicInclude.class);
 
 	private volatile ClickToChatConfiguration _clickToChatConfiguration;
 	private UnicodeProperties _typeSettingsUnicodeProperties;
