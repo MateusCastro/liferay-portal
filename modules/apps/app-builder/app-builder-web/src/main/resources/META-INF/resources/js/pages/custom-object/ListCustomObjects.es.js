@@ -25,6 +25,7 @@ import {
 } from 'data-engine-js-components-web/js/utils/toast.es';
 import {createResourceURL, fetch} from 'frontend-js-web';
 import React, {useContext, useEffect, useRef, useState} from 'react';
+import Tour from 'reactour';
 
 import {AppContext} from '../../AppContext.es';
 import {useKeyDown} from '../../hooks/index.es';
@@ -41,9 +42,29 @@ const queryFields = [
 	'name',
 ].join(',');
 
+const steps = [
+	{
+		content: 'First, Create a Custom Object',
+		selector: '.taglib-empty-result-message button',
+	},
+	{
+		content: 'In this box, you can create your first custom object',
+		selector: '.popover',
+	},
+	{
+		content: 'Now, choose the object name, of your preference',
+		selector: '.popover input',
+	},
+	{
+		content: 'If needed, you can check to open FormView page',
+		selector: '.popover .custom-checkbox',
+	},
+];
+
 export default ({history}) => {
 	const {basePortletURL, baseResourceURL, namespace} = useContext(AppContext);
 	const [editMode, setEditMode] = useState(null);
+	const [isTourOpen, setIsTourOpen] = useState(true);
 	const addButtonRef = useRef();
 	const defaultLanguageId = Liferay.ThemeDisplay.getDefaultLanguageId();
 	const emptyStateButtonRef = useRef();
@@ -225,6 +246,11 @@ export default ({history}) => {
 
 	return (
 		<>
+			<Tour
+				isOpen={isTourOpen}
+				onRequestClose={() => setIsTourOpen(false)}
+				steps={steps}
+			/>
 			<ListObjects
 				history={history}
 				listViewProps={{
