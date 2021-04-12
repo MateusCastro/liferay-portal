@@ -21,8 +21,10 @@ import Popover from '../../components/popover/Popover.es';
 
 const CustomObjectPopover = ({
 	alignElement,
+	changeInputValue,
 	className,
 	forwardRef,
+	inputValue,
 	onCancel,
 	onSubmit,
 	visible,
@@ -99,11 +101,13 @@ const CustomObjectPopover = ({
 						<ClayInput
 							className="form-control"
 							id="customObjectNameInput"
-							onChange={({currentTarget}) =>
-								validate(currentTarget.value)
-							}
+							onChange={({currentTarget}) => {
+								validate(currentTarget.value);
+								changeInputValue(currentTarget.value);
+							}}
 							ref={nameInputRef}
 							type="text"
+							value={inputValue}
 						/>
 
 						{hasError && (

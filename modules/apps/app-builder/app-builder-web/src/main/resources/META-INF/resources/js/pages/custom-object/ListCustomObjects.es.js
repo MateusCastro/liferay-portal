@@ -42,29 +42,67 @@ const queryFields = [
 	'name',
 ].join(',');
 
-const steps = [
-	{
-		content: 'First, Create a Custom Object',
-		selector: '.taglib-empty-result-message button',
-	},
-	{
-		content: 'In this box, you can create your first custom object',
-		selector: '.popover',
-	},
-	{
-		content: 'Now, choose the object name, of your preference',
-		selector: '.popover input',
-	},
-	{
-		content: 'If needed, you can check to open FormView page',
-		selector: '.popover .custom-checkbox',
-	},
-];
-
 export default ({history}) => {
+	const steps = [
+		{
+			content:
+				'When you have no Custom Object, you will see this empty status message.',
+			selector: '.taglib-empty-result-message',
+			stepInteraction: false,
+		},
+		{
+			content: 'You can click the button to add a new Custom Object',
+			selector: '.taglib-empty-result-message .btn-secondary',
+			stepInteraction: false,
+		},
+		{
+			content:
+				'You can also add a new Custom Object clicking on the button',
+			selector:
+				'.nav-btn.nav-btn-monospaced.btn.btn-monospaced.btn-primary',
+			stepInteraction: false,
+		},
+		{
+			action: () => {
+				setAlignElement(addButtonRef.current);
+				setPopoverVisible(true);
+			},
+			content: 'This popover is for you to fill in the information',
+			selector: '.popover',
+			stepInteraction: false,
+		},
+		{
+			action: () => {
+				setAlignElement(addButtonRef.current);
+				setPopoverVisible(true);
+				setInputPopover('Custom Object');
+			},
+			content: 'Fill in the Custom Object name',
+			selector: '.popover input',
+			stepInteraction: false,
+		},
+		{
+			action: () => {
+				setAlignElement(addButtonRef.current);
+				setPopoverVisible(true);
+			},
+			content: 'Select the checkbox to go to the Form View creation page',
+			selector: '.popover-body .custom-control.custom-checkbox',
+			stepInteraction: false,
+		},
+		{
+			action: () => {
+				setAlignElement(addButtonRef.current);
+				setPopoverVisible(true);
+			},
+			content: 'Click on the Continue button to create the Custom Object',
+			selector: '.popover-footer .btn-primary',
+		},
+	];
+
 	const {basePortletURL, baseResourceURL, namespace} = useContext(AppContext);
 	const [editMode, setEditMode] = useState(null);
-	const [isTourOpen, setIsTourOpen] = useState(true);
+	const [isTourOpen, setIsTourOpen] = useState(false);
 	const addButtonRef = useRef();
 	const defaultLanguageId = Liferay.ThemeDisplay.getDefaultLanguageId();
 	const emptyStateButtonRef = useRef();
@@ -72,7 +110,14 @@ export default ({history}) => {
 
 	const [alignElement, setAlignElement] = useState(addButtonRef.current);
 	const [isPopoverVisible, setPopoverVisible] = useState(false);
+	const [inputPopover, setInputPopover] = useState('');
 	const [{showCustomObjectPopover}] = useQuery(history);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsTourOpen(true);
+		}, 1000);
+	}, []);
 
 	const confirmDelete = ({id: dataDefinitionId}) => {
 		return new Promise((resolve, reject) => {
@@ -247,6 +292,7 @@ export default ({history}) => {
 	return (
 		<>
 			<Tour
+				closeWithMask={false}
 				isOpen={isTourOpen}
 				onRequestClose={() => setIsTourOpen(false)}
 				steps={steps}
@@ -301,6 +347,8 @@ export default ({history}) => {
 
 			<CustomObjectPopover
 				alignElement={alignElement}
+				changeInputValue={setInputPopover}
+				inputValue={inputPopover}
 				onCancel={onCancel}
 				onSubmit={onSubmit}
 				ref={popoverRef}
