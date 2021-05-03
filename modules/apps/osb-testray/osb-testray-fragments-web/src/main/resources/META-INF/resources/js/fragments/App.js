@@ -14,14 +14,13 @@
 
 import React from 'react';
 
-import '../css/main.scss';
+import '../../css/main.scss';
+import ResultsDetails from '../components/ResultsDetails/index';
 
 export default () => {
 	return (
-		<div>
-		 	App 1
-
-			<div className="btn btn-primary">BTN</div>
+		<div className="container">
+			<ResultsDetails />
 		</div>
 	);
 };
