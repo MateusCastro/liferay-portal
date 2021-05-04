@@ -1,0 +1,5 @@
+Bundle-Name: OSB Testray Fragments Collection
+Bundle-SymbolicName: com.liferay.osb.testray.fragments.collection
+Bundle-Version: 1.0.0
+Web-ContextPath: /osb-testray-fragments-collection
+-dsannotations-options: inherit

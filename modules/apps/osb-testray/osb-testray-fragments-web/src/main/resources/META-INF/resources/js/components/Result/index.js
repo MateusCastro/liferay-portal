@@ -14,12 +14,26 @@
 
 import React from 'react';
 
-import '../../css/main.scss';
+import Details from './Details';
+import {chartData, columns, productDetails, rows} from './ResultData';
+import Tests from './Tests';
+import TotalCases from './TotalCases';
 
-export default () => {
+const ResultsDetails = () => {
+	const COLUMNS = chartData.map((data) => [
+		`${data.name} (${data.total})`,
+		data.total,
+	]);
+
+	const total = COLUMNS.reduce((acc, column) => acc + column[1], 0);
+
 	return (
-		<div>
-			App 2<div className="btn btn-danger">BTN</div>
+		<div className="results-details">
+			<Details product={productDetails} />
+			<TotalCases columns={COLUMNS} total={total} />
+			<Tests columns={columns} rows={rows} />
 		</div>
 	);
 };
+
+export default ResultsDetails;

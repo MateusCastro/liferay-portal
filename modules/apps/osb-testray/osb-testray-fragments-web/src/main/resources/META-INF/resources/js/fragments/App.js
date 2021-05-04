@@ -13,15 +13,23 @@
  */
 
 import React from 'react';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 
-import '../css/main.scss';
+import Build from '../pages/Build';
+import ListBuilds from '../pages/ListBuilds';
 
-export default () => {
+import '../../css/main.scss';
+
+
+const App = () => {
 	return (
-		<div>
-		 	App 1
-
-			<div className="btn btn-primary">BTN</div>
-		</div>
+		<HashRouter>
+			<Switch>
+				<Route component={ListBuilds} exact path="/" />
+				<Route component={Build} exact path="/:id" />
+			</Switch>
+		</HashRouter>
 	);
 };
+
+export default App;

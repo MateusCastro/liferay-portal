@@ -12,14 +12,6 @@
  * details.
  */
 
-import React from 'react';
+import ResultDetails from '../components/Result/index';
 
-import '../../css/main.scss';
-
-export default () => {
-	return (
-		<div>
-			App 2<div className="btn btn-danger">BTN</div>
-		</div>
-	);
-};
+export default ResultDetails;

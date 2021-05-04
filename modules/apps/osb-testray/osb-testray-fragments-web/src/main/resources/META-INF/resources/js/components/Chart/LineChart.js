@@ -12,14 +12,31 @@
  * details.
  */
 
+import ClayChart from '@clayui/charts';
 import React from 'react';
 
-import '../../css/main.scss';
+import {CATEGORIES, COLUMNS} from './data';
 
-export default () => {
-	return (
-		<div>
-			App 2<div className="btn btn-danger">BTN</div>
-		</div>
-	);
-};
+const Component = () => (
+	<ClayChart
+		data={{
+			columns: COLUMNS,
+			type: 'area-spline',
+		}}
+		legend={{
+			inset: {
+				anchor: 'top-right',
+				x: 20,
+				y: -10,
+			},
+			position: 'inset',
+		}}
+		tooltip={{
+			format: {
+				title: (a) => CATEGORIES[a],
+			},
+		}}
+	/>
+);
+
+export default Component;

@@ -14,12 +14,25 @@
 
 import React from 'react';
 
-import '../../css/main.scss';
+const StatusLabel = ({label}) => {
+	// const colors = ['#77D787', '#E64F45', '#F8D72E', '#59BBFC', '#969696'];
 
-export default () => {
-	return (
-		<div>
-			App 2<div className="btn btn-danger">BTN</div>
-		</div>
-	);
+	const getColor = (label) => {
+		switch (label) {
+			case 'passed':
+				return 'passed';
+			case 'failed':
+				return 'failed';
+			case 'blocked':
+				return 'blocked';
+			case 'text fix':
+				return 'fix';
+			default:
+				return 'defaultstatus';
+		}
+	};
+
+	return <span className={'statuslabel ' + getColor(label)}>{label}</span>;
 };
+
+export default StatusLabel;
