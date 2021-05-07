@@ -1,0 +1,66 @@
+.results-details {
+	margin-top: 20px;
+
+	&__info {
+		span {
+			font-size: 0.75rem;
+		}
+
+		&__indice {
+			font-weight: bold;
+			display: inline-block;
+			width: 180px;
+			color: #acbcc7;
+		}
+	}
+	&__legend {
+		display: flex;
+		margin-top: 40px;
+
+		.results-details__legend__container {
+			margin-right: 40px;
+
+			.title {
+				font-size: 1.3rem;
+			}
+			.subtitle {
+				font-size: 0.75rem;
+				font-weight: bold;
+				color: #acbcc7;
+			}
+		}
+	}
+
+	.chart-donut {
+		width: 450px;
+	}
+
+	.chart-bar {
+		flex: 1;
+	}
+
+	.statuslabel {
+		color: #fff;
+		padding: 4px 8px;
+	}
+
+	.passed {
+		background-color: #77d787;
+	}
+
+	.failed {
+		background-color: #e64f45;
+	}
+
+	.blocked {
+		background-color: #f8d72e;
+	}
+
+	.fix {
+		background-color: #59bbfc;
+	}
+
+	.defaultstatus {
+		background-color: #969696;
+	}
+}

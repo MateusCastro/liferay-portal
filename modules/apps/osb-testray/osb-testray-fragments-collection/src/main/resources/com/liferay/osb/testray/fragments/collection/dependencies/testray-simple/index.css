@@ -1,0 +1,101 @@
+.osb-testray {
+	display: flex !important;
+}
+
+.osb-testray .content {
+	width: 100%;
+	margin: 10px;
+}
+
+.testray-sidebar {
+	background-color: #18215c;
+	box-sizing: border-box;
+	padding: 20px 0 0 0;
+	width: 250px;
+	min-height: 100vh;
+	display: flex !important;
+	flex-direction: column;
+}
+
+.testray-sidebar .divider {
+	background-color: #8b8db2;
+	height: 1px;
+	margin: 20px 25px;
+	min-height: 1px;
+	opacity: 0.25;
+}
+.testray-sidebar .divider.divider-full {
+	margin: 0;
+}
+.testray-sidebar .nameplate-content,
+.testray-sidebar .nameplate-field {
+	padding: 0;
+}
+.testray-sidebar .nameplate-content {
+	font-size: 1.2em;
+	padding-left: 15px;
+	vertical-align: middle;
+}
+.testray-sidebar .spacer {
+	margin: 20px 0;
+}
+.testray-sidebar .testray-logo {
+	margin: 5px 25px 30px 25px;
+}
+.testray-sidebar .testray-logo svg {
+	height: 35px;
+}
+.testray-sidebar .testray-logo svg circle,
+.testray-sidebar .testray-logo svg path,
+.testray-sidebar .testray-logo svg polygon {
+	fill: #8b8db2;
+}
+.testray-sidebar .testray-sidebar-content {
+	display: justify;
+	flex-direction: row;
+}
+.testray-sidebar .testray-sidebar-footer {
+	background-color: #18215c;
+	width: 100%;
+	margin-top: auto;
+}
+.testray-sidebar .testray-sidebar-item {
+	color: #8b8db2;
+	display: block;
+	width: 100%;
+	padding: 10px 25px;
+	position: relative;
+	white-space: nowrap;
+}
+.testray-sidebar .testray-sidebar-item:active,
+.testray-sidebar .testray-sidebar-item:focus,
+.testray-sidebar .testray-sidebar-item:hover {
+	background-color: #303376;
+	text-decoration: none;
+}
+.testray-sidebar .testray-sidebar-item.active {
+	background-color: #303376;
+	color: #fff;
+}
+.testray-sidebar .testray-sidebar-item.testray-sidebar-item-user {
+	cursor: pointer;
+	padding: 15px 25px;
+}
+.testray-sidebar .testray-sidebar-item .testray-sidebar-icon {
+	font-size: 1.5em;
+	vertical-align: middle;
+}
+.testray-sidebar .testray-sidebar-item .testray-sidebar-text {
+	font-size: 1.3em;
+	font-weight: 500;
+	padding-left: 10px;
+	vertical-align: middle;
+	transition: all 0.3s cubic-bezier(0.2, 0.72, 0.57, 1);
+}
+.testray-sidebar .testray-sidebar-separator {
+	margin-top: 20px;
+}
+.fragment-dropzone-entity {
+	padding: 20px;
+	margin: 10px 0;
+}
