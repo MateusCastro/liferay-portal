@@ -12,22 +12,34 @@
  * details.
  */
 
-package com.liferay.digital.signature.configuration;
+import React from 'react';
 
-import aQute.bnd.annotation.metatype.Meta;
+import ManagementToolbar from './ManagementToolbar';
+import TableWithPagination from './TableWithPagination';
 
-import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
+const ListView = ({
+	actions,
+	addButton,
+	columns,
+	editMode,
+	items,
+	noActionsMessage,
+	totalCount,
+}) => {
+	return (
+		<>
+			<ManagementToolbar addButton={addButton} />
 
-/**
- * @author Keven Leone
- */
-@ExtendedObjectClassDefinition(generateUI = false)
-@Meta.OCD(
-	id = "com.liferay.digital.signature.configuration.FFDigitalSignatureConfiguration"
-)
-public interface FFDigitalSignatureConfiguration {
+			<TableWithPagination
+				actions={actions}
+				columns={columns}
+				editMode={editMode}
+				items={items}
+				noActionsMessage={noActionsMessage}
+				totalCount={totalCount}
+			/>
+		</>
+	);
+};
 
-	@Meta.AD(deflt = "true", required = false)
-	public boolean collectDigitalSignatureMenuItemEnabled();
-
-}
+export default ListView;

@@ -18,6 +18,6 @@
 
 <div id="digital-signature-root">
 	<react:component
-		module="js/pages/DigitalSignatureList"
+		module="js/pages/DigitalSignatureAdmin"
 	/>
 </div>

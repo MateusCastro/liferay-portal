@@ -12,22 +12,21 @@
  * details.
  */
 
-package com.liferay.digital.signature.configuration;
+import React from 'react';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 
-import aQute.bnd.annotation.metatype.Meta;
+import EnvelopeForm from './envelope/EnvelopeForm';
+import EnvelopeList from './envelope/EnvelopeList';
+import FolderForm from './folder/FolderForm';
 
-import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
+const DigitalSignatureAdmin = () => (
+	<HashRouter>
+		<Switch>
+			<Route component={EnvelopeList} exact path="/" />
+			<Route component={EnvelopeForm} exact path="/new-envelope" />
+			<Route component={FolderForm} exact path="/new-folder" />
+		</Switch>
+	</HashRouter>
+);
 
-/**
- * @author Keven Leone
- */
-@ExtendedObjectClassDefinition(generateUI = false)
-@Meta.OCD(
-	id = "com.liferay.digital.signature.configuration.FFDigitalSignatureConfiguration"
-)
-public interface FFDigitalSignatureConfiguration {
-
-	@Meta.AD(deflt = "true", required = false)
-	public boolean collectDigitalSignatureMenuItemEnabled();
-
-}
+export default DigitalSignatureAdmin;

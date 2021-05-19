@@ -17,7 +17,8 @@ import ClayForm, {ClayInput} from '@clayui/form';
 import ClayIcon from '@clayui/icon';
 import React from 'react';
 
-import {Input} from './DigitalSignatureFormBase';
+import {Input} from '../form/FormBase';
+import FormDocumentLibraryInput from './DigitalSignatureDocumentLibrary';
 
 const MAX_LENGTH = {
 	EMAIL_MESSAGE: 10000,
@@ -29,6 +30,7 @@ const DigitalSignatureForm = ({
 	errors,
 	handleChange,
 	setFieldValue,
+	showDocumentLibraryInput = false,
 	values,
 }) => {
 	const canAddMoreReceipt = values.recipients.length < MAX_LENGTH.RECEIPTS;
@@ -59,6 +61,8 @@ const DigitalSignatureForm = ({
 				placeholder={Liferay.Language.get('my-envelope-name')}
 				required
 			/>
+
+			{showDocumentLibraryInput && <FormDocumentLibraryInput />}
 
 			{values.recipients.map((recipient, index) => (
 				<ClayForm.Group className="recipient" key={index}>

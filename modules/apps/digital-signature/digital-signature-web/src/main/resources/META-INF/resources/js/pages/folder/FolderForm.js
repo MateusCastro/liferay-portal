@@ -12,22 +12,10 @@
  * details.
  */
 
-package com.liferay.digital.signature.configuration;
+import React from 'react';
 
-import aQute.bnd.annotation.metatype.Meta;
-
-import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
-
-/**
- * @author Keven Leone
- */
-@ExtendedObjectClassDefinition(generateUI = false)
-@Meta.OCD(
-	id = "com.liferay.digital.signature.configuration.FFDigitalSignatureConfiguration"
-)
-public interface FFDigitalSignatureConfiguration {
-
-	@Meta.AD(deflt = "true", required = false)
-	public boolean collectDigitalSignatureMenuItemEnabled();
-
+function NewFolder() {
+	return <div>NewFolder</div>;
 }
+
+export default NewFolder;

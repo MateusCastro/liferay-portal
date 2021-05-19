@@ -25,20 +25,24 @@ import {
 	maxLength,
 	required,
 	validate,
-} from '../components/form/FormValidation';
-import DigitalSignatureForm from '../components/signature-form/DigitalSignatureForm';
+} from '../../components/form/FormValidation';
+import DigitalSignatureForm from '../../components/signature-form/DigitalSignatureForm';
 
 const defaultRecipient = {
 	email: '',
 	fullName: '',
 };
 
-const CollectDigitalSignature = ({portletId, portletNamespace}) => {
+const DigitalSignatureEnvelope = ({history, portletId, portletNamespace}) => {
 	const urlParams = new URLSearchParams(window.location.href);
 	const backURL = urlParams.get(`_${portletId}_backURL`);
 
 	const onCancel = () => {
-		return Liferay.Util.navigate(backURL);
+		if (backURL) {
+			return Liferay.Util.navigate(backURL);
+		}
+
+		history?.goBack();
 	};
 
 	const onSubmit = async (values) => {
@@ -56,7 +60,7 @@ const CollectDigitalSignature = ({portletId, portletNamespace}) => {
 
 		try {
 			const response = await fetch(
-				'/o/digital-signature/v1.0/collect-esignature/',
+				'/o/document-library/v2.0/collect-esignature/',
 				{
 					body: objectToFormData(formDataValues),
 					method: 'POST',
@@ -100,7 +104,7 @@ const CollectDigitalSignature = ({portletId, portletNamespace}) => {
 		const recipientErrors = values.recipients.map((recipient) =>
 			validate(
 				{
-					email: [(v) => maxLength(v, 100), isEmail, required],
+					email: [(v) => maxLength(v, 100), required, isEmail],
 					fullName: [required],
 				},
 				recipient
@@ -151,6 +155,7 @@ const CollectDigitalSignature = ({portletId, portletNamespace}) => {
 							errors={errors}
 							handleChange={handleChange}
 							setFieldValue={setFieldValue}
+							showDocumentLibraryInput
 							values={values}
 						/>
 
@@ -176,4 +181,4 @@ const CollectDigitalSignature = ({portletId, portletNamespace}) => {
 	);
 };
 
-export default CollectDigitalSignature;
+export default DigitalSignatureEnvelope;
