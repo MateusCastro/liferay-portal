@@ -184,11 +184,9 @@ const DocumentPreviewer = ({baseImageURL, initialPage, totalPages}) => {
 			processPageInput(event.currentTarget.value);
 
 			hidePageInput();
-		}
-		else if (code === KEY_CODE_ESC) {
+		} else if (code === KEY_CODE_ESC) {
 			hidePageInput();
-		}
-		else if (VALID_KEY_CODES.indexOf(code) === -1) {
+		} else if (VALID_KEY_CODES.indexOf(code) === -1) {
 			event.preventDefault();
 		}
 	};
@@ -289,6 +287,16 @@ const DocumentPreviewer = ({baseImageURL, initialPage, totalPages}) => {
 						<ClayIcon
 							symbol={expanded ? 'autosize' : 'full-size'}
 						/>
+					</ClayButton>
+					<ClayButton
+						className="btn-floating-bar"
+						monospaced
+						onClick={() => {
+							alert('Crop!');
+						}}
+						title={'Test Compress'}
+					>
+						<ClayIcon symbol="compress" />
 					</ClayButton>
 				</ClayButton.Group>
 			</div>

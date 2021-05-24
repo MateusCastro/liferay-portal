@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,19 +11,35 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+import React from 'react';
 
-<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" var="baseResourceURL" />
+import ManagementToolbar from './ManagementToolbar';
+import TableWithPagination from './TableWithPagination';
 
-<div class="digital-signature">
-	<react:component
-		module="js/pages/DigitalSignature"
-		props='<%=
-			HashMapBuilder.<String, Object>put(
-				"baseResourceURL", String.valueOf(baseResourceURL)
-			).build()
-		%>'
-	/>
-</div>
+const ListView = ({
+	actions,
+	addButton,
+	columns,
+	editMode,
+	items,
+	noActionsMessage,
+	totalCount,
+}) => {
+	return (
+		<>
+			<ManagementToolbar addButton={addButton} />
+
+			<TableWithPagination
+				actions={actions}
+				columns={columns}
+				editMode={editMode}
+				items={items}
+				noActionsMessage={noActionsMessage}
+				totalCount={totalCount}
+			/>
+		</>
+	);
+};
+
+export default ListView;

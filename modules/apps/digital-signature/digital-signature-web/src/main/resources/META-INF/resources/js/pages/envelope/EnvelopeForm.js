@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,19 +11,13 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+import React from 'react';
 
-<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" var="baseResourceURL" />
+import DigitalSignatureForm from '../../components/digital-signature-form/DigitalSignatureForm';
 
-<div class="digital-signature">
-	<react:component
-		module="js/pages/DigitalSignature"
-		props='<%=
-			HashMapBuilder.<String, Object>put(
-				"baseResourceURL", String.valueOf(baseResourceURL)
-			).build()
-		%>'
-	/>
-</div>
+const EnvelopeForm = (props) => (
+	<DigitalSignatureForm {...props} showDocumentLibraryInput />
+);
+
+export default EnvelopeForm;

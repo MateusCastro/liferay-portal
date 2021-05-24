@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,19 +11,14 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+import React from 'react';
+import {useParams} from 'react-router-dom';
 
-<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" var="baseResourceURL" />
+function EnvelopeView() {
+	const {id} = useParams();
 
-<div class="digital-signature">
-	<react:component
-		module="js/pages/DigitalSignature"
-		props='<%=
-			HashMapBuilder.<String, Object>put(
-				"baseResourceURL", String.valueOf(baseResourceURL)
-			).build()
-		%>'
-	/>
-</div>
+	return <div>File FileEntry {id}</div>;
+}
+
+export default EnvelopeView;

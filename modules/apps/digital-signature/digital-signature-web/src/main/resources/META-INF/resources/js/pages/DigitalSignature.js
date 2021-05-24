@@ -13,9 +13,39 @@
  */
 
 import React from 'react';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 
-function DigitalSignature() {
-	return <div>Digital Signature</div>;
-}
+import EnvelopeForm from './envelope/EnvelopeForm';
+import EnvelopeList from './envelope/EnvelopeList';
+import EnvelopeView from './envelope/EnvelopeView';
+
+const DigitalSignature = ({baseResourceURL, portletNamespace}) => (
+	<HashRouter>
+		<Switch>
+			<Route component={EnvelopeView} exact path="/envelope/:id" />
+			<Route
+				component={(props) => (
+					<EnvelopeList
+						{...props}
+						baseResourceURL={baseResourceURL}
+					/>
+				)}
+				exact
+				path="/"
+			/>
+			<Route
+				component={(props) => (
+					<EnvelopeForm
+						{...props}
+						baseResourceURL={baseResourceURL}
+						portletNamespace={portletNamespace}
+					/>
+				)}
+				exact
+				path="/new-envelope"
+			/>
+		</Switch>
+	</HashRouter>
+);
 
 export default DigitalSignature;

@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,19 +11,29 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+import ClayDropDown from '@clayui/drop-down';
+import React from 'react';
 
-<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" var="baseResourceURL" />
+const {Divider, Item} = ClayDropDown;
 
-<div class="digital-signature">
-	<react:component
-		module="js/pages/DigitalSignature"
-		props='<%=
-			HashMapBuilder.<String, Object>put(
-				"baseResourceURL", String.valueOf(baseResourceURL)
-			).build()
-		%>'
-	/>
-</div>
+export default ({action: {action, name}, item, setActive}) => {
+	if (name === 'divider') {
+		return <Divider />;
+	}
+
+	return (
+		<Item
+			onClick={(event) => {
+				event.preventDefault();
+				setActive(false);
+
+				if (action) {
+					action(item);
+				}
+			}}
+		>
+			{typeof name === 'function' ? name(item) : name}
+		</Item>
+	);
+};

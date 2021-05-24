@@ -44,6 +44,8 @@ String previewFileURL = previewFileURLs[0];
 	<link href="<%= PortalUtil.getStaticResourceURL(request, application.getContextPath() + "/preview/css/main.css") %>" rel="stylesheet" type="text/css" />
 </liferay-util:html-top>
 
+<h3>Testando testando testando</h3>
+
 <div id="<portlet:namespace /><%= randomNamespace %>previewDocument">
 	<react:component
 		module="preview/js/DocumentPreviewer.es"
