@@ -103,7 +103,7 @@ const EnvelopeList = ({history}) => {
 					emailSubject,
 					name: <Link to={`/envelope/${envelopeId}`}>{name}</Link>,
 					recipients: (
-						<span className="d-flex">
+						<span className="d-flex flex-wrap">
 							{signers[0]?.name}
 							{signers.length > 1 && (
 								<ClayBadge
