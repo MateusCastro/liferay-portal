@@ -27,37 +27,59 @@ import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../../AppContext';
 import {BackButtonPortal} from '../../components/control-menu/ControlMenu';
 import DocumentPreviewerWrapper from '../../components/document-previewer/DocumentPreviewerWrapper';
+import {OriginalDocumentTag} from '../../components/original-document-tag/OriginalDocumentTag';
 import {DOCUSIGN_STATUS} from '../../utils/contants';
 import {concatValues} from '../../utils/utils';
 
-const QuestionLine = ({children, colon = true, question}) => (
-	<div>
+const QuestionLine = ({children, className, colon = true, question}) => (
+	<div className={className}>
 		<b>{`${question}${colon ? ':' : ''}`}</b>
 		<span className="ml-1">{children}</span>
 	</div>
 );
 
 const EnvelopeDetail = ({
-	envelope: {emailBlurb, emailSubject, recipients, senderEmailAddress},
+	envelope: {
+		createdLocalDateTime,
+		emailBlurb,
+		emailSubject,
+		recipients,
+		senderEmailAddress,
+	},
 	envelopeId,
-}) => (
-	<div className="envelope-view__details">
-		<div>
-			<b>{Liferay.Language.get('envelope-id')}</b>: {envelopeId}
+}) => {
+	const getDataFormat = () => {
+		return `${new Date(createdLocalDateTime).toLocaleString(
+			themeDisplay.getBCP47LanguageId()
+		)}`;
+	};
+
+	return (
+		<div className="envelope-view__details">
+			<div>
+				<b>{Liferay.Language.get('envelope-id')}</b>: {envelopeId}
+			</div>
+			<hr />
+
+			<div className="d-flex">
+				<QuestionLine
+					className="flex-grow-1"
+					colon={false}
+					question={emailSubject}
+				/>
+				<QuestionLine colon={false} question={getDataFormat()} />
+			</div>
+			<QuestionLine question={Liferay.Language.get('to')}>
+				{concatValues(recipients?.signers.map(({email}) => email))}
+			</QuestionLine>
+			<QuestionLine question={Liferay.Language.get('from')}>
+				{senderEmailAddress}
+			</QuestionLine>
+
+			<p className="mt-2">{emailBlurb}</p>
 		</div>
-		<hr />
-
-		<QuestionLine colon={false} question={emailSubject} />
-		<QuestionLine question={Liferay.Language.get('to')}>
-			{concatValues(recipients?.signers.map(({email}) => email))}
-		</QuestionLine>
-		<QuestionLine question={Liferay.Language.get('from')}>
-			{senderEmailAddress}
-		</QuestionLine>
-
-		<p className="mt-2">{emailBlurb}</p>
-	</div>
-);
+	);
+};
 
 const EnvelopeHeader = ({docusignStatus, emailSubject, envelopeId}) => {
 	const {baseResourceURL} = useContext(AppContext);
@@ -152,6 +174,8 @@ function EnvelopeView({
 			/>
 
 			<DocumentPreviewerWrapper fileEntries={fileEntries} />
+
+			<OriginalDocumentTag />
 
 			<EnvelopeDetail envelope={envelope} envelopeId={envelopeId} />
 
