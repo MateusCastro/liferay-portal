@@ -29,6 +29,6 @@ function getCookie(name) {
 const applicationIdCookie = getCookie(nameCookieId);
 
 if (applicationIdCookie) {
-	document.getElementById('content-agent-text-your-application').textContent =
-		'APPLICATION: #' + applicationIdCookie;
+	document.getElementById('application-text-id').textContent =
+		'APPLICATION #' + applicationIdCookie;
 }

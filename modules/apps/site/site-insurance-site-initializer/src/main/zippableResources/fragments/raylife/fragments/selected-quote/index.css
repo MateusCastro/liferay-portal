@@ -1,11 +1,11 @@
-.quote-comparison H1 {
+.quote-comparison-selected H1 {
 	font-size: 37px;
 	font-weight: 800;
 	line-height: 40px;
 	text-align: left;
 }
 
-.quote-comparison H2 {
+.quote-comparison-selected H2 {
 	
 	font-weight: bold;
 	font-size: 24px;
@@ -13,6 +13,6 @@
 	text-align: left;
 	color: #606167;
 }
-.quote-comparison .quote-application {
+.quote-comparison-selected .quote-comparison-application-selected {
 	margin-top: 30px;
 }

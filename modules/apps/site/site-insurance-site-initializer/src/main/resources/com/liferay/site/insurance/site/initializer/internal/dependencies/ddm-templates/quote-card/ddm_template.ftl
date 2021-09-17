@@ -1,5 +1,5 @@
 <style>
-#quote-comparison {
+	#quote-comparison {
 		background-color: #FFF;
 		border-radius: 8px;
 		border: 1px solid #A6C2FF;
@@ -20,10 +20,10 @@
 			height: 549px;
 		</#if>
 		justify-content: space-between;
-		padding: 24px 24px 32px 24px;
+		padding: 24px 24px 32px;
 	}
 
-#quote-comparison .most-popular  {
+	#quote-comparison .most-popular  {
 		background-color: #F4870B;
 		border-radius: 8px 8px 0 0;
 		color: #FFF;
@@ -36,7 +36,6 @@
 	#quote-comparison .no-most-popular  {
 		background-color: #FFF;
 		border-radius: 8px 8px 0 0;
-		border-radius: 8px;
 		height: 25px;
 	}
 	
@@ -141,30 +140,42 @@
 	}
 
 
-		#quote-comparison #purchase {
-			background: none;
-			border-radius: 4px;
-			border: 1px solid #4C85FF;
-			color: #4C85FF;
-			cursor: pointer;
-			font-size: 16px;
-			font-weight: 700;
-			padding: 0;
-			padding: 16px 18px;
-		}
-
-	
-	
-	#quote-comparison #purchase:hover {
-		background: #4C85FF;
+	#quote-comparison #purchase {
+		background: none;
 		border-radius: 4px;
 		border: 1px solid #4C85FF;
-		color: #FFF;
+		color: #4C85FF;
 		cursor: pointer;
 		font-size: 16px;
 		font-weight: 700;
 		padding: 0;
-		padding: 16px 18px;
+		width: 215px;
+		height: 56px;
+		transition: all 0.2s;
+	}
+
+	#quote-comparison #purchase.most-popular {
+			background: #4C85FF;
+			border-radius: 4px;
+			border: 1px solid #4C85FF;
+			color: #FFF;
+			cursor: pointer;
+			font-size: 16px;
+			font-weight: 700;
+			padding: 0;
+			width: 215px;
+			height: 56px;
+			transition: background 0.2s;
+	}
+
+	#quote-comparison #purchase.most-popular:hover {
+			background: #295CCC;
+				color: #FFF;
+	}
+
+	#quote-comparison #purchase:hover {
+		border: 1px solid #295ccc;
+		color: #295ccc;
 	}
 
 	#quote-comparison #details {
@@ -205,11 +216,15 @@
 			</#if>
 		</div>
 		<div class="quote-footer">
-				<#if  (hasButton.getData() != "FALSE") >
-					<div class="d-flex justify-content-center">
-						<button type="button" id="purchase" onclick="event.preventDefault();">PURCHASE THIS POLICY</button>
-					</div>
-				</#if>
+			<#if (hasButton.getData() != "FALSE") >
+				<div class="d-flex justify-content-center">
+					<button type="button" id="purchase"
+						<#if (mostPopular.getData())?? && mostPopular.getData() != "">
+							class="most-popular"
+						</#if>
+						onclick="event.preventDefault();">PURCHASE THIS POLICY</button>
+				</div>
+			</#if>
 			<div class="d-flex justify-content-center">
 				<button type="button" id="details" onclick="event.preventDefault();">Policy Details</button>
 			</div>
