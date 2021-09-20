@@ -1,5 +1,30 @@
 {
-	"name": "Documents",
+	"description_i18n": {
+		"en_US": "test"
+	},
+	"friendlyURL_i18n": {
+		"en_US": "/documents"
+	},
+	"hidden": "false",
+	"keywords_i18n": {
+		"en_US": "test"
+	},
+	"name_i18n": {
+		"en_US": "Documents"
+	},
 	"private": true,
-	"type": "Content"
+	"robots_i18n": {
+		"en_US": "test"
+	},
+	"system": "false",
+	"title_i18n": {
+		"en_US": "test"
+	},
+	"type": "Content",
+	"typeSettings": [
+		{
+			"key": "collectionType",
+			"value": "com.liferay.item.selector.criteria.InfoListItemSelectorReturnType"
+		}
+	]
 }

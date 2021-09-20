@@ -1,4 +1,24 @@
 {
-	"name": "Search",
+	"description_i18n": {
+		"en_US": "test"
+	},
+	"friendlyURL_i18n": {
+		"en_US": "/search"
+	},
+	"hidden": "false",
+	"keywords_i18n": {
+		"en_US": "test"
+	},
+	"name_i18n": {
+		"en_US": "Search"
+	},
+	"private": false,
+	"robots_i18n": {
+		"en_US": "test"
+	},
+	"system": "false",
+	"title_i18n": {
+		"en_US": "test"
+	},
 	"type": "Widget"
 }

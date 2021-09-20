@@ -1,6 +1,34 @@
 {
-	"collectionKey": "OPEN-CLAIMS",
-	"name": "Claims",
+	"description_i18n": {
+		"en_US": "test"
+	},
+	"friendlyURL_i18n": {
+		"en_US": "/claims"
+	},
+	"hidden": "false",
+	"keywords_i18n": {
+		"en_US": "test"
+	},
+	"name_i18n": {
+		"en_US": "Claims"
+	},
 	"private": true,
-	"type": "Collection"
+	"robots_i18n": {
+		"en_US": "test"
+	},
+	"system": "false",
+	"title_i18n": {
+		"en_US": "test"
+	},
+	"type": "Collection",
+	"typeSettings": [
+		{
+			"key": "collectionPK",
+			"value": "OPEN-CLAIMS"
+		},
+		{
+			"key": "collectionType",
+			"value": "com.liferay.item.selector.criteria.InfoListItemSelectorReturnType"
+		}
+	]
 }

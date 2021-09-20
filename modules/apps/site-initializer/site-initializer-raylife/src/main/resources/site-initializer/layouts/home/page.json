@@ -1,4 +1,29 @@
 {
-	"name": "Home",
-	"type": "Content"
+	"description_i18n": {
+		"en_US": "test"
+	},
+	"friendlyURL_i18n": {
+		"en_US": "/home"
+	},
+	"hidden": "false",
+	"keywords_i18n": {
+		"en_US": "test"
+	},
+	"name_i18n": {
+		"en_US": "Home"
+	},
+	"robots_i18n": {
+		"en_US": "test"
+	},
+	"system": "false",
+	"title_i18n": {
+		"en_US": "test"
+	},
+	"type": "Content",
+	"typeSettings": [
+		{
+			"key": "collectionType",
+			"value": "com.liferay.item.selector.criteria.InfoListItemSelectorReturnType"
+		}
+	]
 }

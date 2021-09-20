@@ -1,6 +1,30 @@
 {
-	"collectionKey": "POLICIES",
-	"name": "Policies",
+	"description_i18n": {
+		"en_US": "test"
+	},
+	"friendlyURL_i18n": {
+		"en_US": "/policies"
+	},
+	"hidden": "false",
+	"keywords_i18n": {
+		"en_US": "test"
+	},
+	"name_i18n": {
+		"en_US": "Policies"
+	},
 	"private": true,
-	"type": "Collection"
+	"robots_i18n": {
+		"en_US": "test"
+	},
+	"system": "false",
+	"title_i18n": {
+		"en_US": "test"
+	},
+	"type": "Collection",
+	"typeSettings": [
+		{
+			"key": "collectionType",
+			"value": "com.liferay.item.selector.criteria.InfoListItemSelectorReturnType"
+		}
+	]
 }
